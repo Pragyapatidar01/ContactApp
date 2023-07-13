@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.practice.contactsapp.models.Contact;
 
-@Database(entities = {Contact.class}, version = 1)
+@Database(entities = {ContactEntity.class}, version = 1)
 public abstract class ContactDatabase extends RoomDatabase {
     public abstract ContactDao contactDao();
 

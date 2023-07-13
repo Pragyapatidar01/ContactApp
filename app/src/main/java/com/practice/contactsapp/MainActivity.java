@@ -10,9 +10,15 @@ import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
 
     private Router router;
+
+    @Inject
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void replaceController(Controller newController, ControllerChangeHandler changeHandler) {
+    /*public void replaceController(Controller newController, ControllerChangeHandler changeHandler) {
         router.replaceTopController(RouterTransaction.with(newController)
+                .pushChangeHandler(changeHandler)
+                .popChangeHandler(changeHandler));
+    }*/
+
+    public void pushNewController(Controller newController, ControllerChangeHandler changeHandler) {
+        router.pushController(RouterTransaction.with(newController)
                 .pushChangeHandler(changeHandler)
                 .popChangeHandler(changeHandler));
     }

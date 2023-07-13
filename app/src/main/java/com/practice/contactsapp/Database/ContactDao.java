@@ -2,7 +2,11 @@ package com.practice.contactsapp.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
+import androidx.room.Upsert;
 
 import com.practice.contactsapp.models.Contact;
 
@@ -14,13 +18,16 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface ContactDao {
 
-    @Query("SELECT * FROM contacts")
+    @Query("SELECT * FROM contacts ORDER BY fullName ASC")
     LiveData<List<Contact>> getAllContacts();
 
-    Completable insert(Contact contact);
+    @Upsert
+    Completable insert(ContactEntity contactEntity);
 
-    Completable update(Contact contact);
+    @Update
+    Completable update(ContactEntity contactEntity);
 
-    Completable delete(Contact contact);
+    @Delete
+    Completable delete(ContactEntity contactEntity);
 
 }

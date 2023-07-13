@@ -1,5 +1,9 @@
 package com.practice.contactsapp.MVP;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
@@ -27,9 +31,11 @@ public class ContactPresenter implements ContactContract.Presenter{
 
     @Override
     public void loadContacts() {
+        Log.d(TAG, "loadContacts: loading");
         interactor.getAllContacts().observe(mainActivity, new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
+                Log.d(TAG, "onChanged: ");
                 view.showContacts(contacts);
             }
         });
@@ -46,7 +52,7 @@ public class ContactPresenter implements ContactContract.Presenter{
                             loadContacts();
                         },
                         error -> view.showError(error.getMessage())
-                );
+                ).dispose();
     }
 
     @Override
@@ -60,7 +66,7 @@ public class ContactPresenter implements ContactContract.Presenter{
                             loadContacts();
                         },
                         error -> view.showError(error.getMessage())
-                );
+                ).dispose();
     }
 
     @Override
@@ -74,7 +80,7 @@ public class ContactPresenter implements ContactContract.Presenter{
                             loadContacts();
                         },
                         error -> view.showError(error.getMessage())
-                );
+                ).dispose();
     }
 
     @Override

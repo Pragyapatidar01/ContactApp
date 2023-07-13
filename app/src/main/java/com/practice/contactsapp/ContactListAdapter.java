@@ -1,6 +1,9 @@
 package com.practice.contactsapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +15,23 @@ import android.widget.TextView;
 import com.practice.contactsapp.models.Contact;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactListAdapter extends BaseAdapter {
 
     private final Context context;
     private List<Contact> contacts;
-    private ContactItemClickListener itemClickListener;
 
 
-    public ContactListAdapter(Context context,ContactItemClickListener itemClickListener) {
+    public ContactListAdapter(Context context) {
         this.context = context;
-        this.contacts = contacts;
+        this.contacts = new ArrayList<>();
     }
 
     public void setContacts(List<Contact> contacts){
         this.contacts = contacts;
+        Log.d(TAG, "setContacts: here in setContacts");
         notifyDataSetChanged();
     }
 
@@ -48,43 +52,27 @@ public class ContactListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_contact, parent, false);
-
-            viewHolder = new ViewHolder();
-            viewHolder.fullNameTextView = convertView.findViewById(R.id.full_name_edittext);
-            viewHolder.phoneNumberTextView = convertView.findViewById(R.id.phone_number_edittext);
-            viewHolder.emailTextView = convertView.findViewById(R.id.email_edittext);
-            viewHolder.companyTextView = convertView.findViewById(R.id.company_edittext);
-            viewHolder.imageView = convertView.findViewById(R.id.contact_imageview);
-
-            convertView.setTag(viewHolder);
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.contacts_list_item, parent, false);
+            holder = new ViewHolder();
+            holder.fullNameTextView = convertView.findViewById(R.id.full_name);
+            holder.phoneNumberTextView = convertView.findViewById(R.id.phone_number);
+            convertView.setTag(holder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
-        Contact contact = (Contact) getItem(position);
 
-        viewHolder.fullNameTextView.setText(contact.getFullName());
-        viewHolder.phoneNumberTextView.setText(contact.getPhoneNumber());
-        viewHolder.emailTextView.setText(contact.getEmail());
-        viewHolder.companyTextView.setText(contact.getCompany());
-
-        // Load and display image using Picasso
-        Picasso.get().load(contact.getImageUri()).into(viewHolder.imageView);
+        Contact contact = contacts.get(position);
+        holder.fullNameTextView.setText(contact.getFullName());
+        holder.phoneNumberTextView.setText(contact.getPhoneNumber());
 
         return convertView;
     }
 
-    public interface ContactItemClickListener {
-        void onUpdateClick(Contact contact);
-    }
-
-    private static class ViewHolder {
+    static class ViewHolder {
         TextView fullNameTextView;
         TextView phoneNumberTextView;
-        TextView emailTextView;
-        TextView companyTextView;
-        ImageView imageView;
     }
+
 }

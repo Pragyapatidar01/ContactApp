@@ -10,20 +10,24 @@ public class ContactEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
     public String fullName;
-    public String contactNumber;
+    public String phoneNumber;
     public String email;
-    public String companyInfo;
+    public String company;
     public String imageUri;
 
     public ContactEntity(Contact contact) {
+        this.id = contact.getId();
         this.fullName = contact.getFullName();
-        this.contactNumber = contact.getPhoneNumber();
+        this.phoneNumber = contact.getPhoneNumber();
         this.email = contact.getEmail();
-        this.companyInfo = contact.getCompany();
+        this.company = contact.getCompany();
         this.imageUri = contact.getImageUri();
     }
-
-    public Contact toContact() {
-        return new Contact(id, fullName, contactNumber, email, companyInfo, imageUri);
+    public ContactEntity(String fullName, String phoneNumber, String email, String company, String imageUri) {
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.company = company;
+        this.imageUri = imageUri;
     }
 }

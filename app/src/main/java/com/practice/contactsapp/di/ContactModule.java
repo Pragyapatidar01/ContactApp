@@ -18,15 +18,21 @@ import dagger.Provides;
 @Module
 public class ContactModule {
     private final ContactContract.View view;
+    private final Context context;
 
-    public ContactModule(ContactContract.View view) {
+    public ContactModule(ContactContract.View view, Context context) {
         this.view = view;
+        this.context = context;
     }
 
-    @Singleton
     @Provides
     ContactContract.View provideView() {
         return view;
+    }
+
+    @Provides
+    public Context provideContext() {
+        return context;
     }
 
     @Singleton

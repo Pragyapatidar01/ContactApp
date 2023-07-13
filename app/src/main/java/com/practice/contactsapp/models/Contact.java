@@ -1,5 +1,7 @@
 package com.practice.contactsapp.models;
 
+import com.practice.contactsapp.Database.ContactEntity;
+
 public class Contact {
     private int id;
     private String fullName;
@@ -10,13 +12,24 @@ public class Contact {
 
     // Constructor, getters, and setters
 
-    public Contact(int id, String fullName, String contactNumber, String email, String companyInfo, String imageUri) {
-        this.id = id;
+    public Contact(){
+
+    }
+    public Contact(String fullName, String phoneNumber, String email, String company, String imageUri) {
         this.fullName = fullName;
-        this.phoneNumber = contactNumber;
+        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.company = companyInfo;
+        this.company = company;
         this.imageUri = imageUri;
+    }
+
+    public Contact(ContactEntity contactEntity) {
+        this.id = contactEntity.id;
+        this.fullName = contactEntity.fullName;
+        this.phoneNumber = contactEntity.phoneNumber;
+        this.email = contactEntity.email;
+        this.company = contactEntity.company;
+        this.imageUri = contactEntity.imageUri;
     }
 
     public int getId() {

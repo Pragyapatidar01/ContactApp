@@ -30,6 +30,15 @@ android {
 
 dependencies {
 
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -52,11 +61,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:2.6.1"
 
     //dagger
-    def daggerVer = "2.46"
+    def daggerVer = "2.27"
 
-    implementation "com.google.dagger:dagger::$daggerVer"
-    implementation "com.google.dagger:dagger-android-support:$daggerVer"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+    implementation "com.google.dagger:dagger:$daggerVer"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
 
     //Picasso
@@ -68,5 +75,11 @@ dependencies {
     implementation "com.bluelinelabs:conductor-androidx-transition:$conductorVersion"
     implementation "com.bluelinelabs:conductor-viewpager:$conductorVersion"
     implementation "com.bluelinelabs:conductor-viewpager2:$conductorVersion"
+
+    // JUnit
+    testImplementation 'junit:junit:4.13.2'
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:3.11.2'
+    testImplementation "android.arch.core:core-testing:1.1.1"
 
 }
